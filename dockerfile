@@ -14,12 +14,35 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y mariadb-client \ 
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y git zip unzip
+RUN apt-get update && apt-get install -y libz-dev libmemcached-dev && \
+    pecl install memcached && \
+    docker-php-ext-enable memcached
 
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+RUN apt-get update && apt-get install -y git zip unzip libaio1 libnsl2
+
+# Download oracle packages and install OCI8
+RUN curl -o instantclient-basic-191000.zip https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-basic-linux.arm64-19.10.0.0.0dbru.zip \
+    && unzip instantclient-basic-191000.zip -d /usr/lib/oracle/ \
+    && rm instantclient-basic-191000.zip \
+    && curl -o instantclient-sdk-191000.zip https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-sdk-linux.arm64-19.10.0.0.0dbru.zip \
+    && unzip instantclient-sdk-191000.zip -d /usr/lib/oracle/ \
+    && rm instantclient-sdk-191000.zip \
+    && echo /usr/lib/oracle/instantclient_19_10 > /etc/ld.so.conf.d/oracle-instantclient.conf \
+    && ldconfig
+
+ENV LD_LIBRARY_PATH /usr/lib/oracle/instantclient_19_10
+
 
 # Install php-mysql driver
 RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+# Install PHP extensions: Laravel needs also zip, mysqli and bcmath which 
+# are not included in default image. Also install our compiled oci8 extensions.
+RUN docker-php-ext-configure oci8 --with-oci8=instantclient,/usr/lib/oracle/instantclient_19_10 \
+    && docker-php-ext-install -j$(nproc) oci8
+
+
+
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

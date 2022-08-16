@@ -22,6 +22,8 @@ $driver = new UNL_Peoplefinder_Driver_LDAP();
 // Otherwise, use the webservice driver
 //$driver = new UNL_Peoplefinder_Driver_WebService();
 
+UNL_Peoplefinder::$use_oracle = TRUE;
+
 // Database connection info for officefinder portions
 UNL_Officefinder::$db_host = 'localhost';
 UNL_Officefinder::$db_user = 'officefinder';
