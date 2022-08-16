@@ -13,8 +13,10 @@ UNL_Peoplefinder::$annotateUrl = 'https://annotate.unl.edu/';
 UNL_Peoplefinder::$staticFileVersion = '81a5098';
 
 // If you have LDAP access credentials, best to use this driver, using your credentials
-UNL_Peoplefinder_Driver_LDAP::$bindDN = 'uid=giggidy,ou=service,dc=unl,dc=edu';
-UNL_Peoplefinder_Driver_LDAP::$bindPW = 'flibbertygibberty';
+UNL_Peoplefinder_Driver_LDAP::$bindDN     = 'uid=giggidy,ou=service,dc=unl,dc=edu';
+UNL_Peoplefinder_Driver_LDAP::$baseDN     = 'ou=people,dc=unl,dc=edu';
+UNL_Peoplefinder_Driver_LDAP::$ldapServer = 'ldaps://ldap.unl.edu';
+UNL_Peoplefinder_Driver_LDAP::$bindPW     = 'flibbertygibberty';
 $driver = new UNL_Peoplefinder_Driver_LDAP();
 
 // Otherwise, use the webservice driver

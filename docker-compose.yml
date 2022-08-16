@@ -46,7 +46,7 @@ services:
     command: --init-file /data/application/init.sql
     environment:
       MYSQL_ROOT_PASSWORD: mariadb
-      MYSQL_DATABASE: sitemaster
+      MYSQL_DATABASE: officefinder
       MYSQL_USER: mariadb
       MYSQL_PASSWORD: mariadb
     
