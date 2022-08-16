@@ -26,6 +26,11 @@ UNL_Officefinder::$db_user = 'officefinder';
 UNL_Officefinder::$db_pass = 'officefinder';
 UNL_Officefinder_CorrectionEmail::$defaultRecipient = 'nobody@unl.edu';
 
+// For DOCKER use this
+// UNL_Officefinder::$db_host = 'db';
+// UNL_Officefinder::$db_user = 'mariadb';
+// UNL_Officefinder::$db_pass = 'mariadb';
+
 // Officefinder editing admins
 UNL_Officefinder::$admins = array('hhusker1');
 
