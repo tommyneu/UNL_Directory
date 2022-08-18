@@ -94,6 +94,27 @@ To use:
 1) Run: 'npm install; grunt; composer install'
 2) Copy www/config-sample.inc.php to www/config.inc.php and add your LDAP credentials or uncomment the webservice driver line
 
+### Install With Docker
+
+1) Copy www/config-sample.inc.php to www/config.inc.php and use docker recommended values as well as LDAP and Oracle credentials
+2) Copy www/sample.htaccess to www/.htaccess
+3) Add `127.0.0.1 localhost.unl.edu` to `/etc/hosts` on your host machine
+4) Run `docker-compose build` and `docker-compose up` to start containers
+5) Access the site at [http://localhost.unl.edu:5504/](http://localhost.unl.edu:5504/)
+
+Docker will create two containers called app and db. App holds the contents of the root directory as well as any running program. DB only holds mariadb.
+
+You will be able to edit the files and they will automatically be changed in the container. Every time you use `docker-compose up` it will reinstall/update the
+dependencies for composer and npm and recompile grunt. You will need to wait to see the apache log outputs before it will be hosted. If you would like to change the port or URL for the docker container you will need to stop and remove the old containers with `docker-compose down`, then change the `docker-compose.yml` and run `docker-compose up --build` to rebuild the image and container.
+
+### Stopping docker and running commands
+
+Stop docker with `docker-compose down` in the root directory of the project in another terminal window
+
+Use `docker-compose run app sh` to open an interactive shell in the docker container for the app. This container will have the contents of your root directory in `/var/www/html` and will have node, php, composer, and apache installed.
+You can also run other commands by replacing sh with the command you would like to run(ex. `docker-compose run app php /var/www/html/scripts/import_sis_data.php`)
+
+
 
 ## Rebuild cache
 
