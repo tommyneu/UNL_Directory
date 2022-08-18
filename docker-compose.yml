@@ -20,6 +20,9 @@ services:
 
         # DOCROOT is where the index.php is located typically the /www directory
         DOCROOT: "/www"
+        
+        # System arch as used by oracle ex: arm64, x64, etc.
+        ARCH: "arm64"
 
     volumes:
       - .:/var/www/html/:cached
