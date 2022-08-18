@@ -99,8 +99,9 @@ To use:
 1) Copy www/config-sample.inc.php to www/config.inc.php and use docker recommended values as well as LDAP and Oracle credentials
 2) Copy www/sample.htaccess to www/.htaccess
 3) Add `127.0.0.1 localhost.unl.edu` to `/etc/hosts` on your host machine
-4) Run `docker-compose build` and `docker-compose up` to start containers
-5) Access the site at [http://localhost.unl.edu:5504/](http://localhost.unl.edu:5504/)
+4) You will need to copy WDN to www/wdn since symlinks do not work into containers
+5) Run `docker-compose build` and `docker-compose up` to start containers
+6) Access the site at [http://localhost.unl.edu:5504/](http://localhost.unl.edu:5504/)
 
 Docker will create two containers called app and db. App holds the contents of the root directory as well as any running program. DB only holds mariadb.
 
